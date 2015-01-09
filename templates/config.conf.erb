@@ -1,0 +1,20 @@
+<% Array(@sources).each do |source| -%>
+SOURCES=<%= source %>
+<% end -%>
+
+TARGET=<%= @target %>
+
+<% if @relative -%>
+RELATIVE=1
+<% else -%>
+RELATIVE=
+<% end -%>
+
+<% if @ssh -%>
+SSH=1
+<% end -%>
+
+MAIN_MAX=<%= @main_max %>
+DAILY_MAX=<%= @daily_max %>
+WEEKLY_MAX=<%= @weekly_max %>
+MONTHLY_MAX=<%= @monthly_max %>

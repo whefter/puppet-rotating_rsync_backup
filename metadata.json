@@ -1,0 +1,81 @@
+{
+  "name": "whefter-rotating_rsync_backup",
+  "version": "0.0.1",
+  "author": "William Hefter",
+  "summary": "Puppet rotating-rsync-backup module",
+  "license": "MIT",
+  "source": "https://github.com/whefter/puppet-rotating_rsync_backup",
+  "project_page": "https://github.com/whefter/puppet-rotating_rsync_backup",
+  "issues_url": "https://github.com/whefter/puppet-rotating_rsync_backup/issues",
+  "description": "Puppet module to install and configure manage the rotating-rsync-backup Perl script",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "10 SP4",
+        "11 SP1",
+        "12"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs/vcsrepo","version_requirement":">= 1.2.0"},
+  ]
+}
