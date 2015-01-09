@@ -4,7 +4,7 @@ class rotating_rsync_backup::install {
     }
     
     $ensure = $rotating_rsync_backup::ensure ? {
-        /(present|installed)/i      => $rotating_rsync_backup::source_ensure,
+        /(present|installed)/       => $rotating_rsync_backup::source_ensure,
         default                     => 'absent',
     }
     

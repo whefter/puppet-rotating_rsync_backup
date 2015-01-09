@@ -10,7 +10,7 @@ class rotating_rsync_backup (
     $jobs                   = {},
 ) {
     $config_path_ensure = $ensure ? {
-        /(present|installed)/i      => 'directory',
+        /(present|installed)/       => 'directory',
         default                     => 'absent',
     }
     
