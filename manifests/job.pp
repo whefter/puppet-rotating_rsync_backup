@@ -26,7 +26,7 @@ define rotating_rsync_backup::job
     
     validate_string( $user )
     
-    validate_array( $sources )
+    # validate_array( $sources )
     # validate_absolute_path( $target )
     if !is_integer($main_max) { fail('main_max must be an integer') }
     if !is_integer($daily_max) { fail('daily_max must be an integer') }
