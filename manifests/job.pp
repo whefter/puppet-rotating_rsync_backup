@@ -41,11 +41,11 @@ define rotating_rsync_backup::job
     # if !is_integer($cron_month) fail('cron_month must be an integer')
     # if !is_integer($cron_weekday) fail('cron_weekday must be an integer')
     
-    $$configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
+    $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
     
     if ( $ensure == 'present' )
     {
-        file { $$configpath_final:
+        file { $configpath_final:
             ensure      => file,
             owner       => 'root',
             group       => 'root',
@@ -55,7 +55,7 @@ define rotating_rsync_backup::job
         ->
         cron { "rotating_rsync_backup_${name}":
             ensure      => present,
-            command     => "${rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${$configpath_final}\"",
+            command     => "${rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${configpath_final}\"",
             hour        => $cron_hour,
             minute      => $cron_minute,
             month       => $cron_month,
@@ -70,7 +70,7 @@ define rotating_rsync_backup::job
             ensure      => absent,
         }
         ->
-        file { $$configpath_final:
+        file { $configpath_final:
             ensure      => absent,
         }
     }
