@@ -53,6 +53,12 @@ define rotating_rsync_backup::job
             content     => template( 'rotating_rsync_backup/config.conf.erb' )
         }
         ->
+        exec { "Create ${target}${target_ident} and parent directories":
+            path        => $::path,
+            command     => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}${target_ident}\\\"\"",
+            unless      => "ls \"${target}${target_ident}\"",
+        }
+        ->
         cron { "rotating_rsync_backup_${name}":
             ensure      => present,
             command     => "${rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${configpath_final}\"",
