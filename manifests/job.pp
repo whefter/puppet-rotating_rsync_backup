@@ -1,4 +1,5 @@
-define rotating_rsync_backup::job (
+define rotating_rsync_backup::job
+(
     $configpath         = $rotating_rsync_backup::configpath,
     $ensure             = present,
     
@@ -6,6 +7,7 @@ define rotating_rsync_backup::job (
     
     $sources,
     $target,
+    $target_ident       = '',
     $ssh                = false,
     $main_max,
     $daily_max,
@@ -18,7 +20,7 @@ define rotating_rsync_backup::job (
     $cron_monthday      = '*',
     $cron_month         = '*',
     $cron_weekday       = '*',
-){
+) {
     validate_absolute_path( $configpath )
     validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
     
@@ -50,7 +52,8 @@ define rotating_rsync_backup::job (
             group       => 'root',
             mode        => 0644,
             content     => template( 'rotating_rsync_backup/config.conf.erb' )
-        } -> # and then
+        }
+        ->
         cron { "rotating_rsync_backup_${name}":
             ensure      => present,
             command     => "${rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${finalconfigpath}\"",
@@ -67,7 +70,7 @@ define rotating_rsync_backup::job (
         cron { "rotating_rsync_backup_${name}":
             ensure      => absent,
         }
-        
+        ->
         file { $finalconfigpath:
             ensure      => absent,
         }
