@@ -1,17 +1,41 @@
-<% Array(@sources).each do |source| -%>
-SOURCES=<%= source %>
+<%- Array(@sources).each_with_index  do |source, index| %>
+SOURCE<%= index %>=<%= source['path'] %>
+<%-     if source['host'] %>
+SOURCE<%= index %>_HOST=<%= source['host'] %>
+<%      end -%>
+<%-     if source['user'] %>
+SOURCE<%= index %>_USER=<%= source['user'] %>
+<%      end -%>
 <% end -%>
 
-TARGET=<%= @target %><%= target_ident %>
+TARGET=<%= @target %><%= @target_suffix %>
+<% if @target_host -%>
+TARGET_HOST=<%= @target_host %>
+<% else -%>
+TARGET_HOST=
+<% end -%>
+<% if @target_user -%>
+TARGET_USER=<%= @target_user %>
+<% else -%>
+TARGET_USER=
+<% end -%>
+
+<% if @ssh_identity -%>
+SSH_IDENTITY=<%= @ssh_identitiy %>
+<% else -%>
+SSH_IDENTITY=
+<% end -%>
+
+<% if @ssh_port -%>
+SSH_PORT=<%= @ssh_port %>
+<% else -%>
+SSH_PORT=
+<% end -%>
 
 <% if @relative -%>
 RELATIVE=1
 <% else -%>
 RELATIVE=
-<% end -%>
-
-<% if @ssh -%>
-SSH=1
 <% end -%>
 
 MAIN_MAX=<%= @main_max %>

@@ -1,9 +1,9 @@
 {
   "name": "whefter-rotating_rsync_backup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "William Hefter",
   "summary": "Puppet rotating-rsync-backup module",
-  "license": "MIT",
+  "license": "GPL-2.0",
   "source": "https://github.com/whefter/puppet-rotating_rsync_backup",
   "project_page": "https://github.com/whefter/puppet-rotating_rsync_backup",
   "issues_url": "https://github.com/whefter/puppet-rotating_rsync_backup/issues",
@@ -76,6 +76,6 @@
     }
   ],
   "dependencies": [
-    {"name":"puppetlabs/vcsrepo","version_requirement":">= 1.2.0"},
+    {"name":"puppetlabs/vcsrepo","version_requirement":">= 1.1.0"},
   ]
 }

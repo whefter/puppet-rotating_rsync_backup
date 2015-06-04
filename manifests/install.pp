@@ -5,15 +5,15 @@ class rotating_rsync_backup::install
   }
 
   $ensure = $rotating_rsync_backup::ensure ? {
-    /(present|installed)/       => $rotating_rsync_backup::source_ensure,
-    default                     => 'absent',
+    /(present|installed)/ => $rotating_rsync_backup::source_ensure,
+    default               => 'absent',
   }
 
   vcsrepo { $rotating_rsync_backup::installpath:
-    ensure      => $ensure,
-    provider    => git,
-    source      => $rotating_rsync_backup::source_repo,
-    revision    => $rotating_rsync_backup::source_revision,
-    user        => 'root',
+    ensure   => $ensure,
+    provider => 'git',
+    source   => $rotating_rsync_backup::source_repo,
+    revision => $rotating_rsync_backup::source_branch,
+    user     => 'root',
   }
 }
