@@ -79,7 +79,7 @@ define rotating_rsync_backup::job
           Cron["rotating_rsync_backup_${name}"],
         ],
         require => [
-          File [$configpath_final],
+          File[$configpath_final],
         ]
       }
     }
