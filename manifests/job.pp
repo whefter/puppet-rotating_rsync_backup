@@ -13,7 +13,7 @@ define rotating_rsync_backup::job
   $target_user   = undef,
   $ssh_identity  = undef,
   $ssh_port      = undef,
-  $create_target = true,
+  $create_target = false,
   $relative      = false,
   $cron_minute   = '*',
   $cron_hour     = '*',
