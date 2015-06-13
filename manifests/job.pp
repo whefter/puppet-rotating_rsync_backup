@@ -22,6 +22,7 @@ define rotating_rsync_backup::job
   $cron_weekday  = '*',
   # Deprecated
   $ssh           = undef,
+  $target_ident  = undef,
 ) {
   validate_absolute_path( $::rotating_rsync_backup::configpath )
   validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
@@ -29,6 +30,9 @@ define rotating_rsync_backup::job
 
   if defined($ssh) {
     warning("The 'ssh' parameter has been deprecated and has no function.")
+  }
+  if defined($target_ident) {
+    warning("The 'target_ident' parameter has been deprecated and has no function. Use 'target_suffix' instead.")
   }
 
   # validate_array( $sources )
