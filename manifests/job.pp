@@ -66,7 +66,6 @@ define rotating_rsync_backup::job
       mode    => 0644,
       content => template('rotating_rsync_backup/config.conf.erb'),
       before  => [
-        Exec["Create ${target}/${_target_suffix} and parent directories"],
         Cron["rotating_rsync_backup_${name}"],
       ],
     }
@@ -76,7 +75,12 @@ define rotating_rsync_backup::job
         path    => $::path,
         command => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}/${_target_suffix}\\\"\"",
         unless  => "ls \"${target}/${_target_suffix}\"",
-        before  => [Cron["rotating_rsync_backup_${name}"],],
+        before  => [
+          Cron["rotating_rsync_backup_${name}"],
+        ],
+        require => [
+          File [$configpath_final],
+        ]
       }
     }
 
