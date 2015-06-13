@@ -31,9 +31,15 @@ define rotating_rsync_backup::job
   if defined($ssh) {
     warning("The 'ssh' parameter has been deprecated and has no function.")
   }
+
   if defined($target_ident) {
     warning("The 'target_ident' parameter has been deprecated and has no function. Use 'target_suffix' instead.")
+
+    $_target_suffix = $target_ident
+  } else {
+    $_target_suffix = $target_suffix
   }
+
 
   # validate_array( $sources )
   # validate_absolute_path( $target )
@@ -60,16 +66,16 @@ define rotating_rsync_backup::job
       mode    => 0644,
       content => template('rotating_rsync_backup/config.conf.erb'),
       before  => [
-        Exec["Create ${target}/${target_suffix} and parent directories"],
+        Exec["Create ${target}/${_target_suffix} and parent directories"],
         Cron["rotating_rsync_backup_${name}"],
       ],
     }
 
     if $create_target {
-      exec { "Create ${target}/${target_suffix} and parent directories":
+      exec { "Create ${target}/${_target_suffix} and parent directories":
         path    => $::path,
-        command => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}/${target_suffix}\\\"\"",
-        unless  => "ls \"${target}/${target_suffix}\"",
+        command => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}/${_target_suffix}\\\"\"",
+        unless  => "ls \"${target}/${_target_suffix}\"",
         before  => [Cron["rotating_rsync_backup_${name}"],],
       }
     }
