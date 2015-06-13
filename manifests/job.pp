@@ -20,11 +20,16 @@ define rotating_rsync_backup::job
   $cron_monthday = '*',
   $cron_month    = '*',
   $cron_weekday  = '*',
+  # Deprecated
+  $ssh           = undef,
 ) {
   validate_absolute_path( $::rotating_rsync_backup::configpath )
   validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
-
   validate_string( $user )
+
+  if defined($ssh) {
+    warning("The 'ssh' parameter has been deprecated and has no function.")
+  }
 
   # validate_array( $sources )
   # validate_absolute_path( $target )
