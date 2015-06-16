@@ -1,12 +1,19 @@
-<%- Array(@sources).each_with_index  do |source, index| %>
+<%-
+Array(@sources).each_with_index  do |source, index|
+    if source.is_a?(Hash)
+%>
 SOURCE<%= index %>=<%= source['path'] %>
 <%-     if source['host'] %>
 SOURCE<%= index %>_HOST=<%= source['host'] %>
 <%      end -%>
 <%-     if source['user'] %>
 SOURCE<%= index %>_USER=<%= source['user'] %>
-<%      end -%>
-<% end -%>
+<%      end
+    else
+-%>
+SOURCE<%= index %>=<%= source %>
+    <% end
+end -%>
 
 TARGET=<%= @target %><%= @target_suffix %>
 <% if @target_host -%>
