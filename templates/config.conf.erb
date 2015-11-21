@@ -45,6 +45,12 @@ RELATIVE=1
 RELATIVE=
 <% end -%>
 
+<% if @chmod -%>
+CHMOD=<%= @chmod ?>
+<% else -%>
+CHMOD=
+<% end -%>
+
 MAIN_MAX=<%= @main_max %>
 DAILY_MAX=<%= @daily_max %>
 WEEKLY_MAX=<%= @weekly_max %>

@@ -15,6 +15,7 @@ define rotating_rsync_backup::job
   $ssh_port      = undef,
   $create_target = false,
   $relative      = false,
+  $chmod         = undef,
   $cron_minute   = '*',
   $cron_hour     = '*',
   $cron_monthday = '*',
