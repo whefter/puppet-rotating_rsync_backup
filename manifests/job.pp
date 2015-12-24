@@ -29,11 +29,11 @@ define rotating_rsync_backup::job
   validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
   validate_string( $user )
 
-  if defined($ssh) {
+  if $ssh != undef {
     warning("The 'ssh' parameter has been deprecated and has no function.")
   }
 
-  if defined($target_ident) {
+  if $target_ident != undef {
     warning("The 'target_ident' parameter has been deprecated and has no function. Use 'target_suffix' instead.")
 
     $_target_suffix = $target_ident
