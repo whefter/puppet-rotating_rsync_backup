@@ -98,6 +98,7 @@ define rotating_rsync_backup::job
   } elsif $ensure == 'absent' {
     cron { "rotating_rsync_backup_${name}":
       ensure => absent,
+      user   => $user,
     }
     ->
     file { $configpath_final:
