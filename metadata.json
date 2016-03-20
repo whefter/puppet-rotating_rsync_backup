@@ -1,6 +1,6 @@
 {
   "name": "whefter-rotating_rsync_backup",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "William Hefter",
   "summary": "Puppet rotating-rsync-backup module",
   "license": "GPL-2.0",

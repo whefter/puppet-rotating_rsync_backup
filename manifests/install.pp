@@ -13,7 +13,7 @@ class rotating_rsync_backup::install
     ensure   => $ensure,
     provider => 'git',
     source   => $rotating_rsync_backup::source_repo,
-    revision => $rotating_rsync_backup::source_branch,
+    revision => $rotating_rsync_backup::source_revision,
     user     => 'root',
   }
 }

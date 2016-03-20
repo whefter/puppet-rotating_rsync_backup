@@ -45,10 +45,10 @@ RELATIVE=1
 RELATIVE=
 <% end -%>
 
-<% if @chmod -%>
-CHMOD=<%= @chmod %>
+<% if @rsync_params -%>
+RSYNC_PARAMS=<%= @rsync_params %>
 <% else -%>
-CHMOD=
+RSYNC_PARAMS=
 <% end -%>
 
 MAIN_MAX=<%= @main_max %>
