@@ -1,12 +1,12 @@
 define rotating_rsync_backup::job
 (
-  $main_max,
-  $daily_max,
-  $weekly_max,
-  $monthly_max,
-  $sources,
-  $target,
   $ensure        = present,
+  $main_max      = undef,
+  $daily_max     = undef,
+  $weekly_max    = undef,
+  $monthly_max   = undef,
+  $sources       = undef,
+  $target        = undef,
   $user          = 'root',
   $target_suffix = '',
   $target_host   = undef,
@@ -25,41 +25,41 @@ define rotating_rsync_backup::job
   $ssh           = undef,
   $target_ident  = undef,
 ) {
-  validate_absolute_path( $::rotating_rsync_backup::configpath )
-  validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
-  validate_string( $user )
-
-  if $ssh != undef {
-    warning("The 'ssh' parameter has been deprecated and has no function.")
-  }
-
-  if $target_ident != undef {
-    warning("The 'target_ident' parameter has been deprecated and has no function. Use 'target_suffix' instead.")
-
-    $_target_suffix = $target_ident
-  } else {
-    $_target_suffix = $target_suffix
-  }
-
-
-  # validate_array( $sources )
-  # validate_absolute_path( $target )
-  if !is_integer($main_max) { fail('main_max must be an integer') }
-  if !is_integer($daily_max) { fail('daily_max must be an integer') }
-  if !is_integer($weekly_max) { fail('weekly_max must be an integer') }
-  if !is_integer($monthly_max) { fail('monthly_max must be an integer') }
-
-  validate_bool( $relative )
-
-  # if !is_integer($cron_minute) fail('cron_minute must be an integer')
-  # if !is_integer($cron_hour) fail('cron_hour must be an integer')
-  # if !is_integer($cron_monthday) fail('cron_monthday must be an integer')
-  # if !is_integer($cron_month) fail('cron_month must be an integer')
-  # if !is_integer($cron_weekday) fail('cron_weekday must be an integer')
-
-  $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
-
   if $ensure == 'present' {
+    validate_absolute_path( $::rotating_rsync_backup::configpath )
+    validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
+    validate_string( $user )
+
+    if $ssh != undef {
+      warning("The 'ssh' parameter has been deprecated and has no function.")
+    }
+
+    if $target_ident != undef {
+      warning("The 'target_ident' parameter has been deprecated and has no function. Use 'target_suffix' instead.")
+
+      $_target_suffix = $target_ident
+    } else {
+      $_target_suffix = $target_suffix
+    }
+
+
+    # validate_array( $sources )
+    # validate_absolute_path( $target )
+    if !is_integer($main_max) { fail('main_max must be an integer') }
+    if !is_integer($daily_max) { fail('daily_max must be an integer') }
+    if !is_integer($weekly_max) { fail('weekly_max must be an integer') }
+    if !is_integer($monthly_max) { fail('monthly_max must be an integer') }
+
+    validate_bool( $relative )
+
+    # if !is_integer($cron_minute) fail('cron_minute must be an integer')
+    # if !is_integer($cron_hour) fail('cron_hour must be an integer')
+    # if !is_integer($cron_monthday) fail('cron_monthday must be an integer')
+    # if !is_integer($cron_month) fail('cron_month must be an integer')
+    # if !is_integer($cron_weekday) fail('cron_weekday must be an integer')
+
+    $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
+
     file { $configpath_final:
       ensure  => file,
       owner   => 'root',
