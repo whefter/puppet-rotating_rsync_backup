@@ -44,7 +44,6 @@ define rotating_rsync_backup::job
       $_target_suffix = $target_suffix
     }
 
-
     # validate_array( $sources )
     # validate_absolute_path( $target )
     if !is_integer($main_max) { fail('main_max must be an integer') }
@@ -72,17 +71,16 @@ define rotating_rsync_backup::job
     }
 
     if $create_target {
-      exec { "Create ${target}/${_target_suffix} and parent directories":
-        path    => $::path,
-        command => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}/${_target_suffix}\\\"\"",
-        unless  => "ls \"${target}/${_target_suffix}\"",
-        before  => [
-          Cron["rotating_rsync_backup_${name}"],
-        ],
-        require => [
-          File[$configpath_final],
-        ]
+      if !defined(Exec["Create ${target}/${_target_suffix} and parent directories"]) {
+        exec { "Create ${target}/${_target_suffix} and parent directories":
+          path    => $::path,
+          command => "su - ${user} -c \"mkdir -p --mode 0700 \\\"${target}/${_target_suffix}\\\"\"",
+          unless  => "ls \"${target}/${_target_suffix}\"",
+        }
       }
+
+      File[$configpath_final] -> Exec["Create ${target}/${_target_suffix} and parent directories"]
+      Exec["Create ${target}/${_target_suffix} and parent directories"] -> Cron["rotating_rsync_backup_${name}"]
     }
 
     cron { "rotating_rsync_backup_${name}":
