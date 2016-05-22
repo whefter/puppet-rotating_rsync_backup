@@ -25,6 +25,8 @@ define rotating_rsync_backup::job
   $ssh           = undef,
   $target_ident  = undef,
 ) {
+  $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
+
   if $ensure == 'present' {
     validate_absolute_path( $::rotating_rsync_backup::configpath )
     validate_re( $ensure, '^(present|absent)$', "Valid values for ensure are 'present' or 'absent'" )
@@ -57,8 +59,6 @@ define rotating_rsync_backup::job
     # if !is_integer($cron_monthday) fail('cron_monthday must be an integer')
     # if !is_integer($cron_month) fail('cron_month must be an integer')
     # if !is_integer($cron_weekday) fail('cron_weekday must be an integer')
-
-    $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
 
     file { $configpath_final:
       ensure  => file,
