@@ -63,7 +63,7 @@ define rotating_rsync_backup::job
       ensure  => file,
       owner   => 'root',
       group   => 'root',
-      mode    => 0644,
+      mode    => '0644',
       content => template('rotating_rsync_backup/config.conf.erb'),
       before  => [
         Cron["rotating_rsync_backup_${name}"],
