@@ -1,7 +1,7 @@
 class rotating_rsync_backup (
   $ensure               = 'present',
   $source_repo          = 'https://github.com/whefter/rotating-rsync-backup.git',
-  $source_revision      = 'master',
+  $source_revision      = '8503c8ab8733ba16bccf056e8ced24493bdf8dd3',
   $source_ensure        = 'present',
   $installpath          = '/usr/share/rotating-rsync-backup',
   $configpath           = '/etc/rotating-rsync-backup',
