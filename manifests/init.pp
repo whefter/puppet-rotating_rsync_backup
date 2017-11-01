@@ -1,14 +1,16 @@
 class rotating_rsync_backup (
   $ensure               = 'present',
-  $source_repo          = 'https://github.com/whefter/rotating-rsync-backup.git',
-  $source_revision      = '8503c8ab8733ba16bccf056e8ced24493bdf8dd3',
-  $source_ensure        = 'present',
-  $installpath          = '/usr/share/rotating-rsync-backup',
-  $configpath           = '/etc/rotating-rsync-backup',
+  $source_repo          = $::rotating_rsync_backup::params::source_repo,
+  $source_revision      = $::rotating_rsync_backup::params::source_revision,
+  $installpath          = $::rotating_rsync_backup::params::installpath,
+  $configpath           = $::rotating_rsync_backup::params::configpath,
+  
   $jobs                 = {},
   $declare_storeconfigs = false,
   $storeconfigs_tag     = $::fqdn,
-) {
+)
+inherits ::rotating_rsync_backup::params
+{
   $config_path_ensure = $ensure ? {
     /(present|installed)/ => 'directory',
     default               => 'absent',
