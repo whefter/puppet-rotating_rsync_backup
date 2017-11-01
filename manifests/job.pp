@@ -39,9 +39,6 @@ define rotating_rsync_backup::job
   } elsif $ensure == 'absent' {
     file { $configpath_final:
       ensure => absent,
-      after  => [
-        Cron["rotating_rsync_backup_${name}"],
-      ],
     }
   }
   
