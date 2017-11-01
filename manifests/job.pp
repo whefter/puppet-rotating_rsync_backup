@@ -8,6 +8,8 @@ define rotating_rsync_backup::job
   $cron_monthday = '*',
   $cron_month    = '*',
   $cron_weekday  = '*',
+  $cron_stdout   = undef,
+  $cron_stderr   = undef,
 ) {
   $configpath_final = join([ $::rotating_rsync_backup::configpath, '/', regsubst($name, '[^a-zA-Z0-9_-]', '_', 'G'), '.conf' ])
 
@@ -42,10 +44,21 @@ define rotating_rsync_backup::job
       ],
     }
   }
+  
+  if $cron_stdout {
+    $_cron_stdout = "1>>'${cron_stdout}'"
+  } else {
+    $_cron_stdout = ""
+  }
+  if $cron_stderr {
+    $_cron_stderr = "2>>'${cron_stderr}'"
+  } else {
+    $_cron_stderr = ""
+  }
 
   cron { "rotating_rsync_backup_${name}":
     ensure   => $ensure,
-    command  => "${::rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${configpath_final}\"",
+    command  => "${::rotating_rsync_backup::installpath}/rotating-rsync-backup.pl \"${configpath_final}\" ${_cron_stdout} ${_cron_stderr}",
     hour     => $cron_hour,
     minute   => $cron_minute,
     month    => $cron_month,
